@@ -15,7 +15,7 @@ function SubmitButton({ isLoading, className, children }: ButtonProps) {
       {isLoading ? (
         <div className="flex items-center gap-4">
           <Image
-            src="/assets/images/loader.svg"
+            src="/assets/icons/loader.svg"
             alt="loader"
             height={24}
             width={24}
