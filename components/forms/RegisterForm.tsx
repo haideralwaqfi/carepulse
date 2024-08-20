@@ -15,9 +15,11 @@ import { FormFieldType } from "./PatientForm";
 import { RadioGroup } from "../ui/radio-group";
 import { RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
-import { Doctors, GenderOptions } from "@/constants";
+import { Doctors, GenderOptions, IdentificationTypes } from "@/constants";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
+import { type } from "os";
+import FileUploader from "../FileUploader";
 
 const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
@@ -227,6 +229,42 @@ const RegisterForm = ({ user }: { user: User }) => {
             placeholder="Appendectomy, Tonsillectomy"
           />
         </div>
+        <section className="space-y-4">
+          <h1 className="header">Identification And Verification</h1>
+        </section>
+        <div className="flex flex-col gap-6 xl:flex-row">
+          <CustomFormField
+            fieldType={FormFieldType.SELECT}
+            control={form.control}
+            name="identificationType"
+            label="Identification Type"
+            placeholder="Select Identification Type">
+            {IdentificationTypes.map((type) => (
+              <SelectItem key={type} value={type}>
+                {type}
+              </SelectItem>
+            ))}
+          </CustomFormField>
+          <CustomFormField
+            fieldType={FormFieldType.INPUT}
+            control={form.control}
+            name="IdentificationNumber"
+            label="Identification Number"
+            placeholder="123456789"
+          />
+          <CustomFormField
+            fieldType={FormFieldType.SKELETON}
+            control={form.control}
+            name="identificationDocument"
+            label="Identification Document"
+            renderSkeleton={(field) => (
+              <FormControl>
+                <FileUploader files={field.value} onChange={field.onChange} />
+              </FormControl>
+            )}
+          />
+        </div>
+        <div className="flex flex-col gap-6 xl:flex-row"></div>
         <div className="flex flex-col gap-6 xl:flex-row"></div>
 
         <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
